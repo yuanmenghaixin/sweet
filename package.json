@@ -1,6 +1,6 @@
 {
   "name": "@sweetui/sweet",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Sweet Core",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.17.1",
-    "vue": "^2.5.8",
+    "vue": "^2.5.9",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   }
