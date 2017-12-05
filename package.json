@@ -6,12 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "sweet",
-    "ui",
-    "sweetui"
-  ],
-  "author": "Geely SweetUI Group",
+  "keywords": ["sweet", "ui", "sweetui"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sweetui/sweet.git"
+  },
+  "author": "SweetUI Group",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.17.1",
