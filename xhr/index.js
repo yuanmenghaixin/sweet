@@ -1,13 +1,17 @@
 import Vue from 'vue';
 import axios from 'axios';
 
-const sweetXhr = function (options, store) {
+const SWXHR = function (options, store, tool) {
+    // 注册
+    this._reg(store, tool);
+
     var that = this,
         deOptions = {
             config: {
                 baseURL: '',
                 timeout: 0,
                 headers: {},
+                maxStatus: 500,
                 validateStatus: function (status) {
                     return that._catchStatus(status);
                 }
@@ -23,35 +27,43 @@ const sweetXhr = function (options, store) {
                 }
             }
         };
-    this.OPTIONS = {
-        config: Object.assign(deOptions.config, options.config),
-        intercept: Object.assign(deOptions.intercept, options.intercept)
-    };
+    // this.OPTIONS = {
+    //     config: Object.assign(deOptions.config, options.config),
+    //     intercept: Object.assign(deOptions.intercept, options.intercept)
+    // };
+    this.OPTIONS = this.SWTOOL.object.extend(true, deOptions, options);
+    // 注册全局message
     this.$message = Vue.prototype.$message;
-    // console.log(this.OPTIONS);
+
     that.axios = axios.create(this.OPTIONS.config);
     // 添加请求拦截器
     that._setInterceptors();
-
-    Vue.prototype.SWXHR = this;
-    store.SWXHR = this;
 };
 
-sweetXhr.prototype = {
+SWXHR.prototype = {
+    _reg(store, tool) {
+        Vue.prototype.SWXHR = this;
+        // 注册工具类
+        if (tool) {
+            this.SWTOOL = tool.SWTOOL;
+        }
+        if (store) {
+            store.SWXHR = this;
+            store.SWTOOL = this.SWTOOL;
+        }
+    },
     _setInterceptors() {
         var intercept = this.OPTIONS.intercept,
             request = intercept.request,
             response = intercept.response,
-            defaultError = function(error) {
+            defaultError = function (error) {
                 // 对请求错误做些什么
                 return Promise.reject(error);
             };
 
-        if (request && typeof request === 'function')
-            this.axios.interceptors.request.use(request, defaultError);
+        if (request && typeof (request) === 'function') this.axios.interceptors.request.use(request, defaultError);
 
-        if (response && typeof response === 'function')
-            this.axios.interceptors.response.use(response, defaultError);
+        if (response && typeof (response) === 'function') this.axios.interceptors.response.use(response, defaultError);
     },
     _statusCode(statusCode) {
         var codes = {
@@ -59,8 +71,7 @@ sweetXhr.prototype = {
                 text: '<p>错误编码：400</p>'
             },
             401: {
-                text:
-                    '对不起，您没有权限，请重新登录后再打开。<p>错误编码：401</p>'
+                text: '对不起，您没有权限，请重新登录后再打开。<p>错误编码：401</p>'
             },
             403: {
                 text: '<p>错误编码：403</p>'
@@ -81,15 +92,11 @@ sweetXhr.prototype = {
 
         if (codes[statusCode]) {
             // 托管给使用者调用
-            if (typeof this.OPTIONS.catchStatus === 'function') {
+            if (typeof (this.OPTIONS.catchStatus) === 'function') {
                 this.OPTIONS.catchStatus(statusCode, codes[statusCode]);
             } else {
                 this.$message({
-                    message:
-                        '状态码:' +
-                        statusCode +
-                        '，信息:' +
-                        codes[statusCode].text,
+                    message: '状态码:' + statusCode + '，信息:' + codes[statusCode].text,
                     type: 'error'
                 });
             }
@@ -97,7 +104,7 @@ sweetXhr.prototype = {
     },
     _catchStatus(status) {
         this._statusCode(status);
-        return status < 500;
+        return status < this.OPTIONS.config.maxStatus;
     },
     _getError(error) {
         if (error.response) {
@@ -137,4 +144,4 @@ sweetXhr.prototype = {
     }
 };
 
-export { sweetXhr };
+export default { SWXHR };

@@ -1,7 +1,9 @@
 import sweetRouter from './router';
 import sweetStore from './store';
-import sweetXhr from './xhr';
+import SWXHR from './xhr';
+import SWTOOL from './tool';
 
 export { sweetRouter };
 export { sweetStore };
-export { sweetXhr };
+export { SWXHR };
+export { SWTOOL };

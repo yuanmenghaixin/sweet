@@ -1,7 +1,7 @@
 {
-  "name": "sweet-plugin-xhr",
+  "name": "sweet-plugin-tool",
   "version": "0.0.1",
-  "description": "基于axios第三方ajax组件封装的sweet 2.x 版本的组件",
+  "description": "sweet 前端工具类库",
   "main": "index.js",
   "publishConfig": {
     "registry": "http://10.200.188.161:8081/repository/npm-geely/"
