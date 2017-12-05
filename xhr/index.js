@@ -144,4 +144,4 @@ SWXHR.prototype = {
     }
 };
 
-export default { SWXHR };
+export default SWXHR;
