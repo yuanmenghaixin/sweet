@@ -1,0 +1,22 @@
+{
+  "name": "@sweetui/sweet",
+  "version": "2.0.2",
+  "description": "Sweet Core",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sweet",
+    "ui",
+    "sweetui"
+  ],
+  "author": "Geely SweetUI Group",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.17.1",
+    "vue": "^2.5.8",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1"
+  }
+}

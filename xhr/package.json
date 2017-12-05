@@ -1,0 +1,16 @@
+{
+  "name": "sweet-plugin-xhr",
+  "version": "0.0.1",
+  "description": "基于axios第三方ajax组件封装的sweet 2.x 版本的组件",
+  "main": "index.js",
+  "publishConfig": {
+    "registry": "http://10.86.98.42:8081/repository/npm-geely/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "huyingjun",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
