@@ -1,6 +1,6 @@
 {
   "name": "sweet-plugin-tool",
-  "version": "0.0.1",
+  "version": "2.0.1",
   "description": "sweet 前端工具类库",
   "main": "index.js",
   "publishConfig": {
