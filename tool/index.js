@@ -97,7 +97,6 @@ const SWTOOL = {
 
 // 针对Vue进行安装
 const install = function(Vue, opts = {}) {
-    console.log(1);
     if (install.installed) return;
     Vue.prototype.SWTOOL = SWTOOL;
 }
