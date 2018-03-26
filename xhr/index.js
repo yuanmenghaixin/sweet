@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 
-const SWXHR = function (options, store, tool) {
+const SWXHR = function(options, store, tool) {
     // 注册
     this._reg(store, tool);
 
@@ -12,7 +12,7 @@ const SWXHR = function (options, store, tool) {
                 timeout: 0,
                 headers: {},
                 maxStatus: 500,
-                validateStatus: function (status) {
+                validateStatus: function(status) {
                     return that._catchStatus(status);
                 }
             },
@@ -40,6 +40,50 @@ const SWXHR = function (options, store, tool) {
     that._setInterceptors();
 };
 
+// 要发起请求必须要创建一个红盒实例，操作里面的状态
+class Axios_RedBox {
+    constructor(options) {
+        this.loading = false;
+        this.auto = true;
+
+        for (let name in options) {
+            if (options.hasOwnProperty(name)) {
+                this[name] = options[name];
+            }
+        }
+    }
+
+    switchLoading(bool) {
+        this.loading = bool;
+    }
+
+    getAxios(type, options) {
+        if (this.loading) return;
+        else this.switchLoading(true);
+        var ax = this.SWXHR._getAxios(type, options);
+        ax.then(res => {
+            if (this.auto) this.switchLoading(false);
+        })
+        return ax;
+    }
+
+    GET() {
+        return this.getAxios('GET', arguments);
+    }
+
+    POST() {
+        return this.getAxios('POST', arguments);
+    }
+
+    DELETE() {
+        return this.getAxios('DELETE', arguments);
+    }
+
+    PUT() {
+        return this.getAxios('PUT', arguments);
+    }
+}
+
 SWXHR.prototype = {
     _reg(store, tool) {
         Vue.prototype.SWXHR = this;
@@ -56,14 +100,14 @@ SWXHR.prototype = {
         var intercept = this.OPTIONS.intercept,
             request = intercept.request,
             response = intercept.response,
-            defaultError = function (error) {
+            defaultError = function(error) {
                 // 对请求错误做些什么
                 return Promise.reject(error);
             };
 
-        if (request && typeof (request) === 'function') this.axios.interceptors.request.use(request, defaultError);
+        if (request && typeof(request) === 'function') this.axios.interceptors.request.use(request, defaultError);
 
-        if (response && typeof (response) === 'function') this.axios.interceptors.response.use(response, defaultError);
+        if (response && typeof(response) === 'function') this.axios.interceptors.response.use(response, defaultError);
     },
     _statusCode(statusCode) {
         var codes = {
@@ -92,7 +136,7 @@ SWXHR.prototype = {
 
         if (codes[statusCode]) {
             // 托管给使用者调用
-            if (typeof (this.OPTIONS.catchStatus) === 'function') {
+            if (typeof(this.OPTIONS.catchStatus) === 'function') {
                 this.OPTIONS.catchStatus(statusCode, codes[statusCode]);
             } else {
                 this.$message({
@@ -123,6 +167,9 @@ SWXHR.prototype = {
             data = args[1] ? args[1] : {};
         if (!url) return;
         return this.axios[type.toLowerCase()](url, data);
+    },
+    create(options) {
+        return new Axios_RedBox(Object.assign(options, { SWXHR: this }));
     },
     GET() {
         return this._getAxios('GET', arguments);

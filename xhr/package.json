@@ -1,6 +1,6 @@
 {
   "name": "sweet-plugin-xhr",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "基于axios第三方ajax组件封装的sweet 2.x 版本的组件",
   "main": "index.js",
   "publishConfig": {
