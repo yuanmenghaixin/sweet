@@ -10,7 +10,8 @@ const SWXHR = function(options, store, tool) {
             config: {
                 baseURL: '',
                 timeout: 0,
-                headers: {},
+                // 实时数据请求必须不能缓存
+                headers: {'If-Modified-Since': '0'},
                 maxStatus: 500,
                 validateStatus: function(status) {
                     return that._catchStatus(status);
