@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import axios from 'axios';
+import store from '../store/';
+import tool from '../tool/';
 
-const SWXHR = function(options, store, tool) {
+const SWXHR = function(options) {
     // 注册
     this._reg(store, tool);
 
