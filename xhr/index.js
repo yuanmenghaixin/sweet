@@ -48,6 +48,8 @@ class Axios_RedBox {
     constructor(options) {
         this.loading = false;
         this.auto = true;
+        this.isCancel = false;
+        this.source = '';
 
         for (let name in options) {
             if (options.hasOwnProperty(name)) {
@@ -61,11 +63,22 @@ class Axios_RedBox {
     }
 
     getAxios(type, options) {
-        if (this.loading) return;
-        else this.switchLoading(true);
-        var ax = this.SWXHR._getAxios(type, options);
+        if (this.loading && !this.isCancel) {
+            return;
+        } else if (this.loading && this.isCancel) {
+            this.source.cancel('手动取消请求');
+        } else this.switchLoading(true);
+        var object = this.SWXHR._getAxios(type, options, this.isCancel);
+        var ax = object.axios;
+        this.source = object.source;
         ax.then(res => {
             if (this.auto) this.switchLoading(false);
+        }).catch(thrown => {
+            if (axios.isCancel(thrown)) {
+                console.log('Request canceled', thrown.message);
+            } else {
+                // 处理错误
+            }
         })
         return ax;
     }
@@ -165,11 +178,25 @@ SWXHR.prototype = {
             console.log('Error', error.message);
         }
     },
-    _getAxios(type, args) {
+    _setCancelToken() {
+        var CancelToken = axios.CancelToken,
+            source = CancelToken.source();
+        this.axios.defaults.cancelToken = source.token;
+        return source;
+    },
+    _getAxios(type, args, bool) {
         var url = args[0],
             data = args[1] ? args[1] : {};
         if (!url) return;
-        return this.axios[type.toLowerCase()](url, data);
+        if (!bool) return this.axios[type.toLowerCase()](url, data);
+        else {
+            var source = this._setCancelToken();
+            return {
+                axios: this.axios[type.toLowerCase()](url, data),
+                source: source
+            }
+        }
+        
     },
     create(options) {
         return new Axios_RedBox(Object.assign(options, { SWXHR: this }));
