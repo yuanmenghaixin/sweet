@@ -69,7 +69,7 @@ class Axios_RedBox {
             this.source.cancel('手动取消请求');
         } else this.switchLoading(true);
         var object = this.SWXHR._getAxios(type, options, this.isCancel);
-        var ax = object.axios;
+        var ax = this.isCancel ? object.axios : object;
         this.source = object.source;
         ax.then(res => {
             if (this.auto) this.switchLoading(false);

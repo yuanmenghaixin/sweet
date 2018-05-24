@@ -1,6 +1,6 @@
 {
     "name": "@sweetui/sweet",
-    "version": "2.1.13",
+    "version": "2.1.14",
     "description": "Sweet Core",
     "main": "index.js",
     "scripts": {
