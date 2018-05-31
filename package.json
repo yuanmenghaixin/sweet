@@ -1,6 +1,6 @@
 {
     "name": "@sweetui/sweet",
-    "version": "2.1.14",
+    "version": "2.1.15",
     "description": "Sweet Core",
     "main": "index.js",
     "scripts": {
@@ -18,12 +18,12 @@
     "author": "SweetUI Group",
     "license": "MIT",
     "dependencies": {
-        "axios": "^0.17.1",
-        "element-ui": "^2.3.6",
-        "vue": "^2.5.16",
-        "vue-i18n": "^7.6.0",
-        "vue-router": "^3.0.1",
-        "vue-template-compiler": "^2.5.16",
-        "vuex": "^3.0.1"
+        "axios": "0.17.1",
+        "element-ui": "2.4.0",
+        "vue": "2.5.16",
+        "vue-i18n": "7.6.0",
+        "vue-router": "3.0.1",
+        "vue-template-compiler": "2.5.16",
+        "vuex": "3.0.1"
     }
 }
