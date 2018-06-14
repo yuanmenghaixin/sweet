@@ -188,11 +188,11 @@ SWXHR.prototype = {
         var url = args[0],
             data = args[1] ? args[1] : {};
         if (!url) return;
-        if (!bool) return this.axios[type.toLowerCase()](url, data);
+        if (!bool) return this.axios[type.toLowerCase()](...args);
         else {
             var source = this._setCancelToken();
             return {
-                axios: this.axios[type.toLowerCase()](url, data),
+                axios: this.axios[type.toLowerCase()](...args),
                 source: source
             }
         }
