@@ -98,6 +98,10 @@ class Axios_RedBox {
     PUT() {
         return this.getAxios('PUT', arguments);
     }
+
+    PATCH() {
+        return this.getAxios('PATCH', arguments);
+    }
 }
 
 SWXHR.prototype = {
@@ -206,6 +210,9 @@ SWXHR.prototype = {
     },
     POST() {
         return this._getAxios('POST', arguments);
+    },
+    PATCH() {
+        return this._getAxios('PATCH', arguments);
     },
     DELETE() {
         return this._getAxios('DELETE', arguments);
