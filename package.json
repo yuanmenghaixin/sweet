@@ -1,6 +1,6 @@
 {
     "name": "@sweetui/sweet",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "description": "Sweet Core",
     "main": "index.js",
     "scripts": {
@@ -18,13 +18,16 @@
     "author": "SweetUI Group",
     "license": "MIT",
     "dependencies": {
-        "axios": "0.17.1",
-        "element-ui": "2.4.3",
-        "vue": "2.5.16",
-        "vue-i18n": "7.6.0",
-        "vue-router": "3.0.1",
-        "vue-template-compiler": "2.5.16",
-        "vuex": "3.0.1",
-        "countly-sdk-web": "18.4.0"
+        "axios": "0.18.0",
+        "element-ui": "2.4.11",
+        "vue": "2.5.22",
+        "vue-i18n": "8.7.0",
+        "vue-router": "3.0.2",
+        "vue-template-compiler": "2.5.22",
+        "vuex": "3.1.0",
+        "countly-sdk-web": "18.11.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
