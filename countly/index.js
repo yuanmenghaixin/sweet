@@ -1,5 +1,6 @@
 import Vue from 'vue';
-import 'countly-sdk-web'
+import Countly from 'countly-sdk-web';
+
 /**
  * Countly初始化
  * @param Vue vue对象
